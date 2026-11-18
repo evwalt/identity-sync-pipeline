@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package idsync.v1;
+
+// Answers "what can this identity access?" from the synced entitlement store.
+service AccessService {
+  rpc GetAccess(GetAccessRequest) returns (GetAccessResponse);
+}
+
+message GetAccessRequest {
+  string identity_id = 1;
+}
+
+message Entitlement {
+  string resource = 1;
+  string permission = 2;
+}
+
+message GetAccessResponse {
+  string identity_id = 1;
+  string kind = 2;          // service_account, api_key, oauth_app, ai_agent
+  int64 version = 3;        // last applied source version
+  repeated Entitlement entitlements = 4;
+}

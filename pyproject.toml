@@ -1,0 +1,28 @@
+[project]
+name = "idsync"
+version = "0.1.0"
+description = "Identity change events from third-party integrations, synced through Kafka into Postgres and served over gRPC."
+requires-python = ">=3.11"
+dependencies = [
+  "confluent-kafka>=2.6",
+  "grpcio>=1.66",
+  "protobuf>=5",
+  "psycopg[binary]>=3.2",
+  "psycopg-pool>=3.2",
+]
+
+[project.optional-dependencies]
+dev = ["grpcio-tools>=1.66", "pytest>=8"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+idsync = ["schema.sql"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
